@@ -1,0 +1,29 @@
+{
+  "name": "part4",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "test": "jest --verbose"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^7.30.0",
+    "express": "^4.17.1",
+    "jest": "^27.0.6",
+    "mongoose": "^5.13.2",
+    "nodemon": "^2.0.12"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "morgan": "^1.10.0"
+  },
+  "jest": {
+    "testEnviroment": "node"
+  }
+}
