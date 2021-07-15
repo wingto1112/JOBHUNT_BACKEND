@@ -1,4 +1,4 @@
-const { TestWatcher } = require('jest')
+require('express-async-errors')
 const mongoose = require('mongoose')
 const supertest = require('supertest')
 const app = require('../app')
@@ -24,10 +24,10 @@ const initialBlogs = [
 ]
 beforeEach(async () => {
     await blog.deleteMany({})
-    let blogObj = new blog(initialBlogs[0])
-    await blogObj.save()
-    blogObj = new blog(initialBlogs[1])
-    await blogObj.save()
+    for (let blogs of initialBlogs) {
+        let blogObj = new blog(blogs)
+        await blogObj.save()
+    }
 })
 
 test('there are three blogs', async () => {
@@ -35,7 +35,49 @@ test('there are three blogs', async () => {
     expect(res.body).toHaveLength(initialBlogs.length)
 })
 
+test('_id', async () => {
+    const res = await api.get('/api/blogs')
+    console.log(res.body[0].id)
+    expect(res.body[0].id).toBeDefined()
+})
 
+test('a valid blog can be added', async () => {
+    const newBlog = {
+        title: "Canonical string reduction",
+        author: "Edsger W. Dijkstra",
+        url: "http://www.cs.utexas.edu/~EWD/transcriptions/EWD08xx/EWD808.html",
+        likes: 12
+    }
+    await api.post('/api/blogs')
+        .send(newBlog)
+        .expect(200)
+        .expect('Content-Type', /application\/json/)
+    const res = await api.get('/api/blogs')
+    const author = res.body.map(a => a.author)
+    expect(res.body).toHaveLength(initialBlogs.length + 1)
+    expect(author).toContain('Edsger W. Dijkstra')
+})
+test('default like', async () => {
+    const newBlog = {
+        title: "create for like",
+        author: "Edsger W. Dijkstra",
+        url: "http://www.cs.utexas.edu/~EWD/transcriptions/EWD08xx/EWD808.html",
+    }
+    await api.post('/api/blogs')
+        .send(newBlog)
+    const findBlog = await api.get('/api/blogs')
+    const findNewBlog = findBlog.body.find(blog => blog.title === 'create for like')
+    expect(findNewBlog.likes = 0)
+})
+
+test('title url missing', async () => {
+    const newBlog = {
+        author: "Edsger W. Dijkstra",
+    }
+    await api.post('/api/blogs')
+        .send(newBlog)
+    expect(400)
+})
 
 afterAll(() => {
     mongoose.connection.close()
