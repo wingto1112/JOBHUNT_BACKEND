@@ -1,7 +1,10 @@
-POST https://localhost:3003/api/login HTTP/1.1
+GET https://localhost:3003/api/blogs HTTP/1.1
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJlbiIsImlkIjoiNjBlZmUyNjc2NjEwYzMzYjMwOWQ3YmY4IiwiaWF0IjoxNjI2NDA5NzcyfQ.kMPly2zJRKXtyWk8dbv6Pq13unFTki9xQWU6RfmOmmw
 
 {
-        "username": "ben",
-        "password": "super"
+        "title": "blog 1",
+        "author": "Ben",
+        "url": "qweasd",
+        "likes": 45
 }

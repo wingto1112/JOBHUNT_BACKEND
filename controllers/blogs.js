@@ -1,6 +1,7 @@
 const blogRouter = require("express").Router()
 const Blog = require("../model/blog")
 const User = require("../model/user")
+const jwt = require('jsonwebtoken')
 require("express-async-errors")
 
 blogRouter.get("/", async (req, res) => {
@@ -19,21 +20,26 @@ blogRouter.get("/:id", async (req, res) => {
 
 blogRouter.post("/", async (req, res, next) => {
   const body = req.body
-  const user = await User.findById(body.userID)
+  const user = req.user
+  console.log(user)
   const blog = new Blog({
     title: body.title,
     author: body.author,
     url: body.url,
     likes: body.likes,
-    user: user._id,
+    user: user.id,
   })
   const savedBlog = await blog.save()
-  user.blogs = user.blogs.concat(savedBlog._id)
-  await user.save()
+  const findUser = await User.findById(user.id)
+  findUser.blogs = findUser.blogs.concat(savedBlog._id)
+  await findUser.save()
   res.json(savedBlog)
 })
 
 blogRouter.delete("/:id", async (req, res, next) => {
+  //const blog = await Blog.findById(req.params.id)
+  const user = req.user
+  
   await Blog.findByIdAndRemove(req.params.id)
   res.status(204).end()
 })
