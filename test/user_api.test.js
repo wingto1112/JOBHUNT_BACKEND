@@ -48,7 +48,7 @@ describe('when there is initially one user in db', () => {
         await api
             .post('/api/users')
             .send(newUser)
-            .expect(400)         
+            .expect(400)
     })
 })
 afterAll(() => {

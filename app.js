@@ -23,7 +23,7 @@ app.use(middleware.tokenExtractor)
 app.use(cors())
 app.use(express.json())
 app.use(morgan((':method :url :status :res[content-length] - :response-time ms :data')))
-app.use(middleware.userExtractor)
+
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
 app.use('/api/blogs', blogRouter)

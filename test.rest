@@ -1,10 +1,23 @@
-GET https://localhost:3003/api/blogs HTTP/1.1
+GET https://localhost:3001/api/blogs HTTP/1.1
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJlbiIsImlkIjoiNjBlZmUyNjc2NjEwYzMzYjMwOWQ3YmY4IiwiaWF0IjoxNjI2NDA5NzcyfQ.kMPly2zJRKXtyWk8dbv6Pq13unFTki9xQWU6RfmOmmw
+//Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJlbiIsImlkIjoiNjBlZmUyNjc2NjEwYzMzYjMwOWQ3YmY4IiwiaWF0IjoxNjI2NDA5NzcyfQ.kMPly2zJRKXtyWk8dbv6Pq13unFTki9xQWU6RfmOmmw
+######
+PUT  https://localhost:3001/api/blogs/60f29387fdfa87113ea37c99 HTTP/1.1
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJlbiIsImlkIjoiNjBlZmUyNjc2NjEwYzMzYjMwOWQ3YmY4IiwiaWF0IjoxNjI2NTA5NzMwfQ.Zwiojhf0Pyf7uZBCiBtMqGiE1Lfs1jM8rqvdjzz1_jQ
+
+{  
+        "likes": 4000
+}
+###
+POST https://localhost:3001/api/login HTTP/1.1
+Content-Type: application/json
 
 {
-        "title": "blog 1",
-        "author": "Ben",
-        "url": "qweasd",
-        "likes": 45
+        "username": "ben",
+        "password": "super"
 }
+###
+DELETE   https://localhost:3001/api/blogs/60f291b1d1b69d10f0f5838b HTTP/1.1
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJlbiIsImlkIjoiNjBlZmUyNjc2NjEwYzMzYjMwOWQ3YmY4IiwiaWF0IjoxNjI2NTA5NzMwfQ.Zwiojhf0Pyf7uZBCiBtMqGiE1Lfs1jM8rqvdjzz1_jQ
