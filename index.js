@@ -4,8 +4,8 @@ const app = require('./app')
 const logger = require('./utils/logger')
 const config = require('./utils/config')
 const options = {
-    key: fs.readFileSync('key.pem'),
-    cert: fs.readFileSync('cert.pem')
+    key: fs.readFileSync('./cert/key.pem'),
+    cert: fs.readFileSync('./cert/cert.pem')
 }
 const server = https.createServer(options, app)
 
