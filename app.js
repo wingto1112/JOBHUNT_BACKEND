@@ -9,6 +9,10 @@ const morgan = require('morgan')
 const middleware = require('./utils/middleware')
 const usersRouter = require('./controllers/Users')
 const loginRouter = require('./controllers/login')
+const employerRouter = require('./controllers/employers')
+const jobRouter = require('./controllers/jobs')
+const seekerRouter = require('./controllers/seeker')
+const imageRouter = require('./controllers/image')
 
 morgan.token('data', (req, res) => {
     return JSON.stringify(req.body)
@@ -27,6 +31,10 @@ app.use(morgan((':method :url :status :res[content-length] - :response-time ms :
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
 app.use('/api/blogs', blogRouter)
+app.use('/api/employers', employerRouter)
+app.use('/api/jobs', jobRouter)
+app.use('/api/seekers', seekerRouter)
+app.use('/api/images', imageRouter)
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
 module.exports = app

@@ -1,23 +1,35 @@
 const blogRouter = require("express").Router()
 const Blog = require("../model/blog")
 const User = require("../model/user")
+const Comment = require("../model/comment")
 const middleware = require('../utils/middleware')
 require("express-async-errors")
 
 blogRouter.get("/", async (req, res) => {
-  const blogs = await Blog.find({}).populate("user", { username: 1, name: 1 })
+  const blogs = await Blog.find({}).populate("user", { username: 1, name: 1 }).populate("comments",{comment:1})
   res.json(blogs)
 })
 
 blogRouter.get("/:id", async (req, res) => {
-  const findBlog = await Blog.findById(req.params.id)
+  const findBlog = await (await Blog.findById(req.params.id))
   if (findBlog) {
     res.json(findBlog)
   } else {
     res.status(404).end()
   }
 })
-
+blogRouter.post("/:id/comments", middleware.userExtractor, async (req, res, next) => {
+  const body = req.body
+  const comment = new Comment({
+    comment: body.comment,
+    blog: req.params.id
+  })
+  const commentSave = await comment.save()
+  const findBlog = await Blog.findById(req.params.id)
+  findBlog.comments = findBlog.comments.concat(commentSave._id)
+  await findBlog.save()
+  res.status(201).json(commentSave)
+})
 blogRouter.post("/", middleware.userExtractor, async (req, res, next) => {
   const body = req.body
   const user = req.user
@@ -32,7 +44,7 @@ blogRouter.post("/", middleware.userExtractor, async (req, res, next) => {
   const findUser = await User.findById(user.id)
   findUser.blogs = findUser.blogs.concat(savedBlog._id)
   await findUser.save()
-  res.json(savedBlog)
+  res.status(201).json(savedBlog)
 })
 
 blogRouter.delete("/:id", middleware.userExtractor, async (req, res, next) => {

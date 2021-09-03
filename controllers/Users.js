@@ -12,7 +12,7 @@ usersRouter.get("/", async (req, res) => {
 usersRouter.post("/", async (req, res) => {
   const body = req.body
   if (body.password.length < 3) {
-    return res.status(400).send({ error: "passeord length valid" })
+    return res.status(400).send({ error: "password length valid" })
   }
   const saltRounds = 10
   const passwordHash = await bcrypt.hash(body.password, saltRounds)

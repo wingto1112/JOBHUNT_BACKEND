@@ -1,4 +1,4 @@
-GET https://localhost:3001/api/blogs HTTP/1.1
+GET http://localhost:3001/api/employers HTTP/1.1
 Content-Type: application/json
 //Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJlbiIsImlkIjoiNjBlZmUyNjc2NjEwYzMzYjMwOWQ3YmY4IiwiaWF0IjoxNjI2NDA5NzcyfQ.kMPly2zJRKXtyWk8dbv6Pq13unFTki9xQWU6RfmOmmw
 ######
@@ -10,14 +10,40 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJlb
         "likes": 4000
 }
 ###
-POST https://localhost:3001/api/login HTTP/1.1
+POST http://localhost:3001/api/seekers HTTP/1.1
 Content-Type: application/json
+
+{
+        "username": "ben.seeker",
+        "password": "su",
+        "fullName": "XXX"
+}
+###
+POST http://localhost:3001/api/jobs HTTP/1.1
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJlbiIsImlkIjoiNjExYjMyNTllMzNmMDgyYTM4ZjUxY2MzIiwiaWF0IjoxNjI5MTgwNTM0fQ.JLu4ugv45AxZPxecTycbmwWlkOJJF3L57h_mg12NmFc
+
+{
+        "jobTitle": "SecondJobCreate",
+        "company": "MyCompany",
+        "district": "Central",
+        "salary": "200k",
+        "jobDescription": "jobDescription is here"
+}
+###
+POST http://localhost:3001/api/login HTTP/1.1
+Content-Type: application/json
+//Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJlbiIsImlkIjoiNjBlZmUyNjc2NjEwYzMzYjMwOWQ3YmY4IiwiaWF0IjoxNjI2NTA5NzMwfQ.Zwiojhf0Pyf7uZBCiBtMqGiE1Lfs1jM8rqvdjzz1_jQ
 
 {
         "username": "ben",
         "password": "super"
 }
 ###
-DELETE   https://localhost:3001/api/blogs/60f291b1d1b69d10f0f5838b HTTP/1.1
+PUT  http://localhost:3001/api/jobs/61287de7dd0875626cb9326a HTTP/1.1
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJlbiIsImlkIjoiNjBlZmUyNjc2NjEwYzMzYjMwOWQ3YmY4IiwiaWF0IjoxNjI2NTA5NzMwfQ.Zwiojhf0Pyf7uZBCiBtMqGiE1Lfs1jM8rqvdjzz1_jQ
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFkbWluLkVtcGxveWVyIiwiaWQiOiI2MTFmMjEwYmU3ZDVmYzI4NDRhNTE5N2UiLCJpYXQiOjE2MzAwNDQ3NTR9.DVKcq9PIWTbQuR-swhM39hol_3-Xei2MZo4I3MBf3u0
+
+{
+       "jobTitle": "TestTitle" 
+}
